@@ -1,22 +1,24 @@
 package com.example.demo.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="aircraft")
 public class Aircraft extends BaseEntity implements Serializable {
-
+    @Column(unique=true)
     @NotBlank(message = "Registration number cannot be blank")
     @Size(min = 6, max = 6)
     private String registrationNumber;
@@ -38,6 +40,10 @@ public class Aircraft extends BaseEntity implements Serializable {
     private LocalDateTime lastServiceDate;
 
 
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private Airline airline;
+
+
     public Aircraft(){}
     public Aircraft(String registrationNumber, String model, int capacity, LocalDateTime releaseDate, LocalDateTime lastServiceDate) {
         this.registrationNumber = registrationNumber;
@@ -46,6 +52,8 @@ public class Aircraft extends BaseEntity implements Serializable {
         this.releaseDate = releaseDate;
         this.lastServiceDate = lastServiceDate;
     }
+
+
 
     public String getRegistrationNumber() {
         return registrationNumber;
@@ -86,5 +94,15 @@ public class Aircraft extends BaseEntity implements Serializable {
     public void setLastServiceDate(LocalDateTime lastServiceDate) {
         this.lastServiceDate = lastServiceDate;
     }
+
+
+//    public Airline getAirline() {
+//        return airline;
+//    }
+//
+//    public void setAirline(Airline airline) {
+//        this.airline = airline;
+//    }
+
 
 }

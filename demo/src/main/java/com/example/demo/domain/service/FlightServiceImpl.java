@@ -3,6 +3,7 @@ package com.example.demo.domain.service;
 import com.example.demo.domain.entity.Aircraft;
 import com.example.demo.domain.entity.Airline;
 import com.example.demo.domain.entity.Flight;
+import com.example.demo.domain.entity.Passenger;
 import com.example.demo.domain.mapper.FlightMapper;
 import com.example.demo.domain.models.flight.FlightCreateDTO;
 import com.example.demo.domain.models.flight.FlightResponseDTO;
@@ -10,13 +11,19 @@ import com.example.demo.domain.models.flight.FlightUpdateDTO;
 import com.example.demo.domain.repository.AircraftRepository;
 import com.example.demo.domain.repository.AirlineRepository;
 import com.example.demo.domain.repository.FlightRepository;
+import com.example.demo.domain.repository.PassengerRepository;
 import com.example.demo.infrastructure.AircraftNotFoundException;
 import com.example.demo.infrastructure.AirlineNotFoundException;
 import com.example.demo.infrastructure.FlightNotFoundException;
+import com.example.demo.infrastructure.PassengerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class FlightServiceImpl implements FlightService {
@@ -24,6 +31,7 @@ public class FlightServiceImpl implements FlightService {
     private FlightMapper flightMapper;
     private AirlineRepository airlineRepository;
     private AircraftRepository aircraftRepository;
+    private PassengerRepository passengerRepository;
 
 
     @Override
@@ -51,30 +59,38 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public FlightResponseDTO update(FlightUpdateDTO flightUpdateDTO, Long id) {
-        Airline airline = airlineRepository.findById(flightUpdateDTO.airlineId()).orElseThrow(() -> new AirlineNotFoundException(flightUpdateDTO.airlineId()));
         Flight flightDb = flightRepository.findById(id).orElseThrow(() -> new FlightNotFoundException(id));
         Flight flightForUpdate = flightMapper.map(flightUpdateDTO);
         flightForUpdate.setId(flightDb.getId());
-        flightForUpdate.setAirline(airline);
+        flightForUpdate.setAirline(flightDb.getAirline());
         return flightMapper.map(flightRepository.save(flightForUpdate));
     }
 
     @Override
     public Long delete(Long id) {
-        if (flightRepository.existsById(id)) {
-            flightRepository.deleteById(id);
-        } else {
-            throw new FlightNotFoundException(id);
-        }
+        Flight flight = flightRepository.findById(id).orElseThrow(() -> new FlightNotFoundException(id));
+
+        Set<Passenger> passengersForDeletion = flight.getPassengers();
+        passengersForDeletion.forEach(passenger -> passenger.getFlights().remove(flight));
+
+
+        flightRepository.deleteById(id);
+
         return id;
     }
 
     @Override
-    public FlightResponseDTO assignAircraftToFlight(Long aircraftId,Long flightId) {
-        Aircraft aircraft=aircraftRepository.findById(aircraftId).orElseThrow(() -> new AircraftNotFoundException(aircraftId));
-        Flight flight= flightRepository.findById(flightId).orElseThrow(() -> new FlightNotFoundException(flightId));
+    public FlightResponseDTO assignAircraftToFlight(Long aircraftId, Long flightId) {
+        Aircraft aircraft = aircraftRepository.findById(aircraftId).orElseThrow(() -> new AircraftNotFoundException(aircraftId));
+        Flight flight = flightRepository.findById(flightId).orElseThrow(() -> new FlightNotFoundException(flightId));
         flight.setAircraft(aircraft);
         return flightMapper.map(flightRepository.save(flight));
+    }
+
+
+    @Autowired
+    public void setPassengerRepository(PassengerRepository passengerRepository) {
+        this.passengerRepository = passengerRepository;
     }
 
     @Autowired

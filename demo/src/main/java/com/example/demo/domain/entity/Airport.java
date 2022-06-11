@@ -1,5 +1,7 @@
 package com.example.demo.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -11,6 +13,7 @@ public class Airport extends BaseEntity implements Serializable {
     @NotBlank(message = "Name cannot be blank")
     private String name;
 
+    @Column(unique=true)
     @NotBlank(message = "Code cannot be blank")
     @Size(min = 1, max = 4)
     private String code;
@@ -43,6 +46,7 @@ public class Airport extends BaseEntity implements Serializable {
         this.phoneNumber = phoneNumber;
         this.airlines = airlines;
     }
+
 
     public String getName() {
         return name;

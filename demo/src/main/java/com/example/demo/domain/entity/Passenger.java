@@ -11,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -39,6 +38,7 @@ public class Passenger extends BaseEntity implements Serializable {
     private Date birthDate;
 
     @NotBlank(message = "Field cannot be blank")
+    @Column(unique=true)
     private String uniqueIdentifierNumber;
 
     @ManyToMany(fetch = FetchType.LAZY,

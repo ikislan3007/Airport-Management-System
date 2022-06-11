@@ -6,11 +6,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDateTime;
 
 public record FlightResponseDTO(Long id,
+                                String flightNumber,
                                 LocalDateTime arrTime,
                                 LocalDateTime depTime,
                                 String deptAirportCode,
                                 String destAirportCode,
                                 @JsonIgnoreProperties({"iban", "insuranceСompany"})
-                                AirlineResponseDTO airline,
-                                AircraftResponseDTO aircraft)  {
+                                AirlineResponseDTO airline
+
+                                )  {
 }

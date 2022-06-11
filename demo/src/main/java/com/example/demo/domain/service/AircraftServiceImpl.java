@@ -1,26 +1,26 @@
 package com.example.demo.domain.service;
 
 import com.example.demo.domain.entity.Aircraft;
-import com.example.demo.domain.entity.Flight;
+import com.example.demo.domain.entity.Airline;
 import com.example.demo.domain.mapper.AircraftMapper;
 import com.example.demo.domain.models.aircarft.AircraftCreateDTO;
 import com.example.demo.domain.models.aircarft.AircraftResponseDTO;
 import com.example.demo.domain.models.aircarft.AircraftUpdateDTO;
 import com.example.demo.domain.repository.AircraftRepository;
+import com.example.demo.domain.repository.AirlineRepository;
 import com.example.demo.domain.repository.FlightRepository;
 import com.example.demo.infrastructure.AircraftNotFoundException;
+import com.example.demo.infrastructure.AirlineNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Service
 public class AircraftServiceImpl implements AircraftService {
     private AircraftRepository aircraftRepository;
     private AircraftMapper aircraftMapper;
+    private AirlineRepository airlineRepository;
     private FlightRepository flightRepository;
 
 
@@ -68,6 +68,11 @@ public class AircraftServiceImpl implements AircraftService {
     @Autowired
     public void setAircraftRepository(AircraftRepository aircraftRepository) {
         this.aircraftRepository = aircraftRepository;
+    }
+
+    @Autowired
+    public void setAirlineRepository(AirlineRepository airlineRepository) {
+        this.airlineRepository = airlineRepository;
     }
 
     @Autowired

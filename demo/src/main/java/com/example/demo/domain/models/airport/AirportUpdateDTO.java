@@ -13,7 +13,5 @@ public record AirportUpdateDTO(@NotBlank(message = "Airport name cannot be blank
                                @NotNull
                                @NotBlank(message="Please enter your phone number")
                                @Pattern(regexp = "^(\\+\\d{1,2}\\s?)?1?\\-?\\.?\\s?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$")
-                               String phoneNumber,
-                               @NotEmpty(message = "Airlines cannot be empty.")
-                               List<Long> airlinesId) {
+                               String phoneNumber){
 }

@@ -4,23 +4,23 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Flight extends BaseEntity implements Serializable {
+    @Column(unique = true)
+    @NotBlank(message = "Flight number cannot be blank")
+    private String flightNumber;
+
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -39,28 +39,44 @@ public class Flight extends BaseEntity implements Serializable {
     @Size(min = 0, max = 3)
     private String destAirportCode;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "airline_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
-    @NotFound(action = NotFoundAction.IGNORE)
     private Airline airline;
-
 
     @ManyToOne
     @JoinColumn(name = "aircraftId")
     private Aircraft aircraft;
 
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "flights",
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE,
+            })
+    Set<Passenger> passengers=new HashSet<>();
+
     public Flight() {
     }
 
-    public Flight(LocalDateTime arrTime, LocalDateTime depTime, String deptAirportCode, String destAirportCode, Airline airline, Aircraft aircraft) {
+//    public Flight(LocalDateTime arrTime, LocalDateTime depTime, String deptAirportCode, String destAirportCode, Airline airline, Aircraft aircraft) {
+//        this.arrTime = arrTime;
+//        this.depTime = depTime;
+//        this.deptAirportCode = deptAirportCode;
+//        this.destAirportCode = destAirportCode;
+//        this.airline = airline;
+//        this.aircraft = aircraft;
+//    }
+
+
+    public Flight(String flightNumber, LocalDateTime arrTime, LocalDateTime depTime, String deptAirportCode, String destAirportCode, Airline airline, Aircraft aircraft, Set<Passenger> passengers) {
+        this.flightNumber = flightNumber;
         this.arrTime = arrTime;
         this.depTime = depTime;
         this.deptAirportCode = deptAirportCode;
         this.destAirportCode = destAirportCode;
         this.airline = airline;
         this.aircraft = aircraft;
+        this.passengers = passengers;
     }
 
     public LocalDateTime getArrTime() {
@@ -111,4 +127,19 @@ public class Flight extends BaseEntity implements Serializable {
         this.aircraft = aircraft;
     }
 
+    public String getFlightNumber() {
+        return flightNumber;
+    }
+
+    public void setFlightNumber(String flightNumber) {
+        this.flightNumber = flightNumber;
+    }
+
+    public Set<Passenger> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(Set<Passenger> passengers) {
+        this.passengers = passengers;
+    }
 }

@@ -1,8 +1,11 @@
 package com.example.demo.web;
 
+import com.example.demo.domain.models.airline.AircraftToAirline;
 import com.example.demo.domain.models.airline.AirlineCreateDTO;
 import com.example.demo.domain.models.airline.AirlineResponseDTO;
 import com.example.demo.domain.models.airline.AirlineUpdateDTO;
+import com.example.demo.domain.models.airport.AirlinesToAirport;
+import com.example.demo.domain.models.airport.AirportResponseDTO;
 import com.example.demo.domain.service.AirlineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,6 +43,12 @@ public class AirlineController {
     @PatchMapping("/{id}")
     public ResponseEntity<AirlineResponseDTO> update(@PathVariable Long id, @Valid @RequestBody AirlineUpdateDTO airlineUpdateDTO) {
         AirlineResponseDTO airlineResponseDTO = airlineService.update(airlineUpdateDTO, id);
+        return ResponseEntity.ok(airlineResponseDTO);
+    }
+
+    @PatchMapping("/aircraft")
+    public ResponseEntity<AirlineResponseDTO> assignAircraftToAirline(@Valid@RequestBody AircraftToAirline aircraftToAirline) {
+        AirlineResponseDTO airlineResponseDTO = airlineService.assignAircraftToAirline(aircraftToAirline.airlineId(), aircraftToAirline.aircraftId());
         return ResponseEntity.ok(airlineResponseDTO);
     }
 

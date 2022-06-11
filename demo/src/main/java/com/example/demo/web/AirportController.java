@@ -1,8 +1,11 @@
 package com.example.demo.web;
 
+import com.example.demo.domain.models.airport.AirlinesToAirport;
 import com.example.demo.domain.models.airport.AirportCreateDTO;
 import com.example.demo.domain.models.airport.AirportResponseDTO;
 import com.example.demo.domain.models.airport.AirportUpdateDTO;
+import com.example.demo.domain.models.flight.AircraftToFlightDTO;
+import com.example.demo.domain.models.flight.FlightResponseDTO;
 import com.example.demo.domain.service.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,6 +46,11 @@ public class AirportController {
         return ResponseEntity.ok(airportResponseDTO);
     }
 
+    @PatchMapping("/airline")
+    public ResponseEntity<AirportResponseDTO> assignAirlineToAirport(@Valid@RequestBody AirlinesToAirport airlinesToAirport) {
+        AirportResponseDTO airportResponseDTO = airportService.assignAirlineToAirport(airlinesToAirport.airlineId(), airlinesToAirport.airportId());
+        return ResponseEntity.ok(airportResponseDTO);
+    }
     @Autowired
     public void setAirportService(AirportService airportService) {
         this.airportService = airportService;

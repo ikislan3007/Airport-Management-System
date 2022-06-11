@@ -1,9 +1,11 @@
 package com.example.demo.domain.models.airline;
 
+import com.example.demo.domain.models.aircarft.AircraftCreateDTO;
 import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 public record AirlineCreateDTO(@NotBlank(message = "Name cannot be blank")
                                String name,
@@ -14,5 +16,6 @@ public record AirlineCreateDTO(@NotBlank(message = "Name cannot be blank")
                                @NotBlank
                                String iban,
                                @NotBlank(message = "Insurance company cannot be blank")
-                               String insuranceСompany) {
+                               String insuranceСompany,
+                               List<AircraftCreateDTO> aircrafts) {
 }
