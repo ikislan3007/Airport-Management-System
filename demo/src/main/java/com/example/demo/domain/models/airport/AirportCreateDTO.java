@@ -1,7 +1,9 @@
 package com.example.demo.domain.models.airport;
 
-import javax.validation.constraints.*;
-import java.util.List;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public record AirportCreateDTO(@NotBlank(message = "Airport name cannot be blank")
                                String name,
@@ -13,5 +15,6 @@ public record AirportCreateDTO(@NotBlank(message = "Airport name cannot be blank
                                @NotNull
                                @NotBlank(message="Please enter your phone number")
                                @Pattern(regexp = "^(\\+\\d{1,2}\\s?)?1?\\-?\\.?\\s?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$")
-                               String phoneNumber) {
+                               String phoneNumber,
+                               boolean disabled) {
 }

@@ -52,6 +52,7 @@ public class AirportServiceImpl implements AirportService {
         Airport airportForUpdate = airportMapper.map(airportUpdateDTO);
         airportForUpdate.setId(airportDb.getId());
         airportForUpdate.setCode(airportDb.getCode());
+        airportForUpdate.setAirlines(airportDb.getAirlines());
         return airportMapper.map(airportRepository.save(airportForUpdate));
     }
 

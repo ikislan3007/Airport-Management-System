@@ -5,14 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,21 +29,21 @@ public class Flight extends BaseEntity implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime depTime;
 
-    @NotBlank(message = "Code cannot be blank")
-    @Size(min = 1, max = 4)
-    private String deptAirportCode;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Airport deptAirport;
 
-    @NotBlank(message = "Code cannot be blank")
-    @Size(min = 0, max = 3)
-    private String destAirportCode;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Airport destAirport;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Airline airline;
 
     @ManyToOne
-    @JoinColumn(name = "aircraftId")
-    private Aircraft aircraft;
+    private Aircraft deptAircraft;
+
+    @ManyToOne
+    private Aircraft destAircraft;
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "flights",
@@ -58,25 +56,48 @@ public class Flight extends BaseEntity implements Serializable {
     public Flight() {
     }
 
-//    public Flight(LocalDateTime arrTime, LocalDateTime depTime, String deptAirportCode, String destAirportCode, Airline airline, Aircraft aircraft) {
-//        this.arrTime = arrTime;
-//        this.depTime = depTime;
-//        this.deptAirportCode = deptAirportCode;
-//        this.destAirportCode = destAirportCode;
-//        this.airline = airline;
-//        this.aircraft = aircraft;
-//    }
-
-
-    public Flight(String flightNumber, LocalDateTime arrTime, LocalDateTime depTime, String deptAirportCode, String destAirportCode, Airline airline, Aircraft aircraft, Set<Passenger> passengers) {
+    public Flight(String flightNumber, LocalDateTime arrTime, LocalDateTime depTime, Airport deptAirport, Airport destAirport, Airline airline, Aircraft deptAircraft, Aircraft destAircraft, Set<Passenger> passengers) {
         this.flightNumber = flightNumber;
         this.arrTime = arrTime;
         this.depTime = depTime;
-        this.deptAirportCode = deptAirportCode;
-        this.destAirportCode = destAirportCode;
+        this.deptAirport = deptAirport;
+        this.destAirport = destAirport;
         this.airline = airline;
-        this.aircraft = aircraft;
+        this.deptAircraft = deptAircraft;
+        this.destAircraft = destAircraft;
         this.passengers = passengers;
+    }
+
+    public Aircraft getDeptAircraft() {
+        return deptAircraft;
+    }
+
+    public void setDeptAircraft(Aircraft deptAircraft) {
+        this.deptAircraft = deptAircraft;
+    }
+
+    public Aircraft getDestAircraft() {
+        return destAircraft;
+    }
+
+    public void setDestAircraft(Aircraft destAircraft) {
+        this.destAircraft = destAircraft;
+    }
+
+    public Airport getDeptAirport() {
+        return deptAirport;
+    }
+
+    public void setDeptAirport(Airport deptAirport) {
+        this.deptAirport = deptAirport;
+    }
+
+    public Airport getDestAirport() {
+        return destAirport;
+    }
+
+    public void setDestAirport(Airport destAirport) {
+        this.destAirport = destAirport;
     }
 
     public LocalDateTime getArrTime() {
@@ -95,36 +116,12 @@ public class Flight extends BaseEntity implements Serializable {
         this.depTime = depTime;
     }
 
-    public String getDeptAirportCode() {
-        return deptAirportCode;
-    }
-
-    public void setDeptAirportCode(String deptAirportCode) {
-        this.deptAirportCode = deptAirportCode;
-    }
-
-    public String getDestAirportCode() {
-        return destAirportCode;
-    }
-
-    public void setDestAirportCode(String destAirportCode) {
-        this.destAirportCode = destAirportCode;
-    }
-
     public Airline getAirline() {
         return airline;
     }
 
     public void setAirline(Airline airline) {
         this.airline = airline;
-    }
-
-    public Aircraft getAircraft() {
-        return aircraft;
-    }
-
-    public void setAircraft(Aircraft aircraft) {
-        this.aircraft = aircraft;
     }
 
     public String getFlightNumber() {
@@ -141,5 +138,9 @@ public class Flight extends BaseEntity implements Serializable {
 
     public void setPassengers(Set<Passenger> passengers) {
         this.passengers = passengers;
+    }
+
+
+    public void setAircraft(Aircraft aircraft) {
     }
 }

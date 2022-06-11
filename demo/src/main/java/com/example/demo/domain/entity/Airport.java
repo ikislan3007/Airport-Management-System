@@ -1,9 +1,10 @@
 package com.example.demo.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +27,8 @@ public class Airport extends BaseEntity implements Serializable {
     @Pattern(regexp = "^(\\+\\d{1,2}\\s?)?1?\\-?\\.?\\s?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$")
     private String phoneNumber;
 
+    private boolean disabled;
+
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
@@ -39,14 +42,22 @@ public class Airport extends BaseEntity implements Serializable {
     public Airport() {
     }
 
-    public Airport(String name, String code, String address, String phoneNumber, Set<Airline> airlines) {
+    public Airport(String name, String code, String address, String phoneNumber, boolean disabled, Set<Airline> airlines) {
         this.name = name;
         this.code = code;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.disabled = disabled;
         this.airlines = airlines;
     }
 
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
+    }
 
     public String getName() {
         return name;

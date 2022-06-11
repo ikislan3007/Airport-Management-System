@@ -55,6 +55,15 @@ public class ControllerAdviceErrorHandler {
         return new Violation("id", exception.getMessage());
     }
 
+
+    @ExceptionHandler( AirportDoesNotServeAirlineException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public Violation handleAirportDoesNotServeAirlineException(RuntimeException exception) {
+        return new Violation("id", exception.getMessage());
+    }
+
+
     private record ErrorResponse(List<Violation> violations) {
     }
 

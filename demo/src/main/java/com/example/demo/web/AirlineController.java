@@ -4,8 +4,6 @@ import com.example.demo.domain.models.airline.AircraftToAirline;
 import com.example.demo.domain.models.airline.AirlineCreateDTO;
 import com.example.demo.domain.models.airline.AirlineResponseDTO;
 import com.example.demo.domain.models.airline.AirlineUpdateDTO;
-import com.example.demo.domain.models.airport.AirlinesToAirport;
-import com.example.demo.domain.models.airport.AirportResponseDTO;
 import com.example.demo.domain.service.AirlineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 public record FlightCreateDTO(@NotBlank(message = "Flight number cannot be blank")
@@ -20,13 +19,12 @@ public record FlightCreateDTO(@NotBlank(message = "Flight number cannot be blank
                               @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
                               LocalDateTime depTime,
 
-                              @NotBlank(message = "Code cannot be blank")
-                              @Size(min = 1, max = 4)
-                              String deptAirportCode,
+                              @NotNull
 
-                              @NotBlank(message = "Code cannot be blank")
-                              @Size(min = 0, max = 3)
-                              String destAirportCode,
+                              Long deptAirportId,
+
+                              @NotNull
+                              Long destAirportId,
 
                               @NotNull
                               Long airlineId) {
