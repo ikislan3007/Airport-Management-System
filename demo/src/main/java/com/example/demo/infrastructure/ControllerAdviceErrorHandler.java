@@ -48,7 +48,7 @@ public class ControllerAdviceErrorHandler {
         return new ErrorResponse(violations);
     }
 
-    @ExceptionHandler({AirportNotFoundException.class, AirlineNotFoundException.class, FlightNotFoundException.class, AircraftNotFoundException.class,PassengerNotFoundException.class})
+    @ExceptionHandler({AirportNotFoundException.class, AirlineNotFoundException.class, FlightNotFoundException.class, AircraftNotFoundException.class,PassengerNotFoundException.class,  CrewMemberNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public Violation handleAccountNotFoundException(RuntimeException exception) {

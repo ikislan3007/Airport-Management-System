@@ -1,19 +1,18 @@
 package com.example.demo.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name="aircraft")
@@ -38,10 +37,6 @@ public class Aircraft extends BaseEntity implements Serializable {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime lastServiceDate;
-
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private Airline airline;
 
 
     public Aircraft(){}
@@ -95,14 +90,6 @@ public class Aircraft extends BaseEntity implements Serializable {
         this.lastServiceDate = lastServiceDate;
     }
 
-
-//    public Airline getAirline() {
-//        return airline;
-//    }
-//
-//    public void setAirline(Airline airline) {
-//        this.airline = airline;
-//    }
 
 
 }

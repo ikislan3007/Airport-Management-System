@@ -44,6 +44,11 @@ public class Airline extends BaseEntity implements Serializable {
     @JoinColumn(name = "airline_id")
     List<Aircraft> aircrafts=new ArrayList<>();
 
+//    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name = "airline_id")
+//    List<CrewMember> crewMembers =new ArrayList<>();
+
+
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "airline", orphanRemoval = true)
@@ -119,6 +124,15 @@ public class Airline extends BaseEntity implements Serializable {
     public void setAircrafts(List<Aircraft> aircrafts) {
         this.aircrafts = aircrafts;
     }
+
+
+//    public List<CrewMember> getCrewMembers() {
+//        return crewMembers;
+//    }
+//
+//    public void setCrewMembers(List<CrewMember> crewMembers) {
+//        this.crewMembers = crewMembers;
+//    }
 }
 
 
