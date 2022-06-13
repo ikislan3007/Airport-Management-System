@@ -1,0 +1,1001 @@
+{
+	"info": {
+		"_postman_id": "5d20cbb5-65f3-4918-b1e8-d90c10c9291c",
+		"name": "AirportManagementSystem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Airport",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Sofia Airport\",\r\n    \"code\": \"SOF\",\r\n    \"address\": \"булевард „Христофор Колумб“ 1\",\r\n    \"phoneNumber\":\"+359877644503\",\r\n     \"disabled\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/airport",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"airport"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Airport",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Sofia International Airport\",\r\n    \"code\": \"SOF\",\r\n    \"address\": \" булевард „Христофор Колумб“ 1, 1540\",\r\n    \"phoneNumber\":\"+359877644503\",\r\n   \"disabled\":false\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/airport/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"airport",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Airport",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/airport/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"airport",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Airport",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/airport/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"airport",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Airline",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{ \r\n    \"name\": \"Turkish Airlines\",\r\n    \"webSite\": \"https://www.turkishairlines.com/\",\r\n    \"iban\": \"GB33BUKB2020155555533\",\r\n    \"insuranceСompany\":\"Allianz\"\r\n\r\n }\r\n\r\n\r\n\r\n\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/airline",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"airline"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Airline",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{ \r\n    \"name\": \"American Airlines\",\r\n    \"webSite\": \"https://www.aa.com/\",\r\n    \"iban\": \"Us33BUKB2020155555533\",\r\n    \"insuranceСompany\":\"Allianz\"\r\n\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/airline/22",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"airline",
+						"22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Airline",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/airline/22",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"airline",
+						"22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Airline",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/airline/22",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"airline",
+						"22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AssignAirlineToAirport",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"airlineId\":\"2\",\r\n    \"airportId\":\"8\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/airport/airline",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"airport",
+						"airline"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AssignAircraftToAirline",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"airlineId\":8,\r\n\"aircraftId\":6\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/airline/aircraft",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"airline",
+						"aircraft"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Flight",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"flightNumber\":\"S12234\",\r\n    \"arrTime\": \"2022-07-30 12:00\",\r\n    \"depTime\":\"2022-07-30 10:00\",\r\n    \"deptAirportId\": 1,\r\n    \"destAirportId\": 2,\r\n    \"airlineId\":4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/flight",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"flight"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update flight",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"flightNumber\":\"S15937\",\r\n    \"arrTime\": \"2022-07-30T12:00\",\r\n    \"depTime\":\"2022-07-30T10:00\",\r\n    \"deptAirportId\": 18,\r\n    \"destAirportId\": 19\r\n  \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/flight/28",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"flight",
+						"28"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Flight",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/flight/28",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"flight",
+						"28"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Flight",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/flight/28",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"flight",
+						"28"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Aircraft",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"registrationNumber\": \"N753SK\",\r\n    \"model\":\"Airbus A220.\",\r\n    \"capacity\": 120,\r\n    \"releaseDate\": \"2016-07-15 10:00\",\r\n    \"lastServiceDate\":\"2020-07-15 10:00\",\r\n    \"airlineId\":3\r\n   \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/aircraft",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"aircraft"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Aircraft",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"registrationNumber\": \"N75TSP\",\r\n    \"model\":\"Airbus A220.\",\r\n    \"capacity\": 120,\r\n    \"releaseDate\": \"2016-07-15 10:00\",\r\n    \"lastServiceDate\":\"2020-07-15 10:00\",\r\n    \"airlineId\":23\r\n   \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/aircraft/33",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"aircraft",
+						"33"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Aircraft",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/aircraft/33",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"aircraft",
+						"33"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Aircraft",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/aircraft/33",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"aircraft",
+						"33"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AssignAircraftToFlight",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"aircraftId\":\"31\",\r\n    \"flightId\":\"28\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/flight/aircraft",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"flight",
+						"aircraft"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Passenger",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n    \"firstName\": \"Irina\",\r\n    \"lastName\": \"Kislan\",\r\n    \"email\": \"irinakislan@gmail.com\",\r\n    \"phoneNumber\":\"+359877644503\",\r\n    \"birthDate\":\"1999-30-08\",\r\n    \"uniqueIdentifierNumber\":\"9907301111\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/passenger",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"passenger"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Passenger",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/passenger/38",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"passenger",
+						"38"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Passenger",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n    \"firstName\": \"Mariq\",\r\n    \"lastName\": \"Petrich\",\r\n    \"email\": \"mariqPetrich@gmail.com\",\r\n    \"phoneNumber\":\"+357877644293\",\r\n    \"birthDate\":\"1999-30-08\",\r\n    \"uniqueIdentifierNumber\":\"9907302221\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/passenger/38",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"passenger",
+						"38"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Passenger",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/passenger/38",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"passenger",
+						"38"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AssignPassenferToFlight",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"passengerId\": 37,\r\n    \"flightId\":24\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/passenger/flight",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"passenger",
+						"flight"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create CrewMember",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"uniqueIdentifierNumber\": \"9907301111\",\r\n    \"firstName\": \"Irina\",\r\n    \"lastName\": \"Kisaln\",\r\n    \"jobTitle\":\"Board attendant\",\r\n    \"phoneNumber\": \"+359877644503\",\r\n    \"email\":\"irinaKislan@fmail.com\",\r\n    \"birthDate\": \"1999-03-03\",\r\n    \"salary\":3000,\r\n    \"hiringDate\":\"2022-08-08 09:00\",\r\n    \"airlineId\":4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/crew/member",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"crew",
+						"member"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update CrewMember",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"uniqueIdentifierNumber\": \"9907301111\",\r\n    \"firstName\": \"Irina\",\r\n    \"lastName\": \"Kisaln\",\r\n    \"jobTitle\":\"Board attendant\",\r\n    \"phoneNumber\": \"+359877644503\",\r\n    \"email\":\"irinaKislan@fmail.com\",\r\n    \"birthDate\": \"1999-03-03\",\r\n    \"salary\":3000\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/crew/member/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"crew",
+						"member",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update CrewMember",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"uniqueIdentifierNumber\": \"9907302222\",\r\n    \"firstName\": \"Inna\",\r\n    \"lastName\": \"Petrova\",\r\n    \"jobTitle\":\"Pilot\",\r\n    \"phoneNumber\": \"+359877644503\",\r\n    \"email\":\"petrova@fmail.com\",\r\n    \"birthDate\": \"1999-03-03\",\r\n    \"salary\":5000,\r\n    \"hiringDate\":\"2022-08-08 09:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/crew/member/45",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"crew",
+						"member",
+						"45"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get CrewMember",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/crew/member/45",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"crew",
+						"member",
+						"45"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete CrewMember",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/crew/member/45",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"crew",
+						"member",
+						"45"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Crew",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"uniqueCrewIdentifierNumber\":\"c12567\",\r\n    \"crewMembersID\":[12,14]\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/crew",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"crew"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Crew",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"uniqueCrewIdentifierNumber\":\"c14997\",\r\n    \"crewMembersID\":[44,45]\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/crew/48",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"crew",
+						"48"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Crew",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/crew/48",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"crew",
+						"48"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Crew",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/crew/48",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"crew",
+						"48"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AssignCrewToAircraft",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"crewId\":28,\r\n    \"aircraftId\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/aircraft/crew",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"aircraft",
+						"crew"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAll Airports",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/airport",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"airport"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAll Airlines",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/airline",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"airline"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAll Flights",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/flight",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"flight"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAll Aircrafts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/aircraft",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"aircraft"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAll Passengers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/passenger",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"passenger"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAll CrewMembers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/crew/member",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"crew",
+						"member"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAll Crews",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/crew",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"crew"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
