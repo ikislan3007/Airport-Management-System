@@ -2,9 +2,7 @@ package com.example.demo.domain.models.crewmember;
 
 import com.example.demo.domain.models.airline.AirlineResponseDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public record CrewMemberResponseDTO(Long id,
                                     String uniqueIdentifierNumber,
@@ -13,7 +11,6 @@ public record CrewMemberResponseDTO(Long id,
                                     String jobTitle,
                                     String phoneNumber,
                                     String email,
-                                    Date birthDate,
                                     double salary,
                                     LocalDateTime hiringDate,
                                     @JsonIgnoreProperties({"iban", "insuranceСompany", "aircrafts"})

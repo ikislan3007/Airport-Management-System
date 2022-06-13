@@ -3,6 +3,7 @@ package com.example.demo.web;
 import com.example.demo.domain.models.aircarft.AircraftCreateDTO;
 import com.example.demo.domain.models.aircarft.AircraftResponseDTO;
 import com.example.demo.domain.models.aircarft.AircraftUpdateDTO;
+import com.example.demo.domain.models.aircarft.CrewToAircraft;
 import com.example.demo.domain.service.AircraftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,6 +41,12 @@ public class AircraftController {
     @PatchMapping("/{id}")
     public ResponseEntity<AircraftResponseDTO> update(@PathVariable Long id, @Valid @RequestBody AircraftUpdateDTO aircraftUpdateDTO) {
         AircraftResponseDTO aircraftResponseDTO = aircraftService.update(aircraftUpdateDTO, id);
+        return ResponseEntity.ok(aircraftResponseDTO);
+    }
+
+    @PatchMapping("/crew")
+    public ResponseEntity<AircraftResponseDTO> assignCrewToAircraft(@Valid@RequestBody CrewToAircraft crewToAircraft) {
+        AircraftResponseDTO aircraftResponseDTO  = aircraftService.assignCrewToAircraft(crewToAircraft.crewId(), crewToAircraft.aircraftId());
         return ResponseEntity.ok(aircraftResponseDTO);
     }
 

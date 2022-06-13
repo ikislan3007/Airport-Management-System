@@ -2,10 +2,11 @@ package com.example.demo.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -22,11 +23,13 @@ public class Flight extends BaseEntity implements Serializable {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime arrTime;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime depTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -40,10 +43,7 @@ public class Flight extends BaseEntity implements Serializable {
     private Airline airline;
 
     @ManyToOne
-    private Aircraft deptAircraft;
-
-    @ManyToOne
-    private Aircraft destAircraft;
+    private Aircraft aircraft;
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "flights",
@@ -51,37 +51,20 @@ public class Flight extends BaseEntity implements Serializable {
                     CascadeType.PERSIST,
                     CascadeType.MERGE,
             })
-    Set<Passenger> passengers=new HashSet<>();
+    private Set<Passenger> passengers=new HashSet<>();
 
     public Flight() {
     }
 
-    public Flight(String flightNumber, LocalDateTime arrTime, LocalDateTime depTime, Airport deptAirport, Airport destAirport, Airline airline, Aircraft deptAircraft, Aircraft destAircraft, Set<Passenger> passengers) {
+    public Flight(String flightNumber, LocalDateTime arrTime, LocalDateTime depTime, Airport deptAirport, Airport destAirport, Airline airline, Aircraft aircraft, Set<Passenger> passengers) {
         this.flightNumber = flightNumber;
         this.arrTime = arrTime;
         this.depTime = depTime;
         this.deptAirport = deptAirport;
         this.destAirport = destAirport;
         this.airline = airline;
-        this.deptAircraft = deptAircraft;
-        this.destAircraft = destAircraft;
+        this.aircraft = aircraft;
         this.passengers = passengers;
-    }
-
-    public Aircraft getDeptAircraft() {
-        return deptAircraft;
-    }
-
-    public void setDeptAircraft(Aircraft deptAircraft) {
-        this.deptAircraft = deptAircraft;
-    }
-
-    public Aircraft getDestAircraft() {
-        return destAircraft;
-    }
-
-    public void setDestAircraft(Aircraft destAircraft) {
-        this.destAircraft = destAircraft;
     }
 
     public Airport getDeptAirport() {
@@ -142,5 +125,10 @@ public class Flight extends BaseEntity implements Serializable {
 
 
     public void setAircraft(Aircraft aircraft) {
+        this.aircraft = aircraft;
+    }
+
+    public Aircraft getAircraft() {
+        return aircraft;
     }
 }

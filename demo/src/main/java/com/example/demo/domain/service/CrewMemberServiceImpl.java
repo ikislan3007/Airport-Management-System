@@ -8,8 +8,8 @@ import com.example.demo.domain.models.crewmember.CrewMemberResponseDTO;
 import com.example.demo.domain.models.crewmember.CrewMemberUpdateDTO;
 import com.example.demo.domain.repository.AirlineRepository;
 import com.example.demo.domain.repository.CrewMemberRepository;
-import com.example.demo.infrastructure.AirlineNotFoundException;
-import com.example.demo.infrastructure.CrewMemberNotFoundException;
+import com.example.demo.infrastructure.exceptions.AirlineNotFoundException;
+import com.example.demo.infrastructure.exceptions.CrewMemberNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,10 +25,8 @@ public class CrewMemberServiceImpl implements CrewMemberService {
     @Override
     public CrewMemberResponseDTO save(CrewMemberCreateDTO crewMemberCreateDTO) {
         Airline airline=airlineRepository.findById(crewMemberCreateDTO.airlineId()).orElseThrow(() -> new AirlineNotFoundException(crewMemberCreateDTO.airlineId()));
-
         CrewMember employeeForSave = crewMemberMapper.map(crewMemberCreateDTO);
         employeeForSave.setAirline(airline);
-
         CrewMember employeeSaved = crewMemberRepository.save(employeeForSave);
         return crewMemberMapper.map(employeeSaved);
     }
@@ -50,7 +48,6 @@ public class CrewMemberServiceImpl implements CrewMemberService {
     @Override
     public CrewMemberResponseDTO update(CrewMemberUpdateDTO crewMemberUpdateDTO, Long id) {
         CrewMember crewMember=crewMemberRepository.findById(id).orElseThrow(() -> new CrewMemberNotFoundException(id));
-
         CrewMember crewMemberForUpdate = crewMemberMapper.map(crewMemberUpdateDTO);
         crewMemberForUpdate.setId(crewMember.getId());
         crewMemberForUpdate.setAirline(crewMember.getAirline());

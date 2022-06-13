@@ -44,8 +44,8 @@ public class AirlineController {
         return ResponseEntity.ok(airlineResponseDTO);
     }
 
-    @PatchMapping("/aircraft")
-    public ResponseEntity<AirlineResponseDTO> assignAircraftToAirline(@Valid@RequestBody AircraftToAirline aircraftToAirline) {
+    @PutMapping("/aircraft")
+    public ResponseEntity<AirlineResponseDTO> assignAircraftToAirline(@Valid @RequestBody AircraftToAirline aircraftToAirline) {
         AirlineResponseDTO airlineResponseDTO = airlineService.assignAircraftToAirline(aircraftToAirline.airlineId(), aircraftToAirline.aircraftId());
         return ResponseEntity.ok(airlineResponseDTO);
     }

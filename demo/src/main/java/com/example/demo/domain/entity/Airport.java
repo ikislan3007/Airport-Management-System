@@ -1,5 +1,7 @@
 package com.example.demo.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -27,6 +29,7 @@ public class Airport extends BaseEntity implements Serializable {
     @Pattern(regexp = "^(\\+\\d{1,2}\\s?)?1?\\-?\\.?\\s?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$")
     private String phoneNumber;
 
+    @NotNull
     private boolean disabled;
 
     @ManyToMany(fetch = FetchType.LAZY,
@@ -37,6 +40,7 @@ public class Airport extends BaseEntity implements Serializable {
     @JoinTable(name = "airport_airline",
             joinColumns = {@JoinColumn(name = "airport_id")},
             inverseJoinColumns = {@JoinColumn(name = "airline_id")})
+    @JsonIgnore
     private Set<Airline> airlines = new HashSet<>();
 
     public Airport() {

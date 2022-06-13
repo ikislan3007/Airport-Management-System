@@ -1,8 +1,7 @@
 package com.example.demo.domain.models.airport;
 
-import com.example.demo.domain.entity.Airline;
-
-import java.util.Set;
+import com.example.demo.domain.models.airline.AirlineResponseDTO;
+import java.util.List;
 
 
 public record AirportResponseDTO(Long id,
@@ -10,6 +9,6 @@ public record AirportResponseDTO(Long id,
                                  String code,
                                  String address,
                                  String phoneNumber,
-                                 Set<Airline> airlines,
+                                 List<AirlineResponseDTO> airlines,
                                  boolean disabled) {
 }

@@ -9,12 +9,10 @@ import com.example.demo.domain.models.passenger.PassengerResponseDTO;
 import com.example.demo.domain.models.passenger.PassengerUpdateDTO;
 import org.mapstruct.Mapper;
 
-import java.util.Set;
-
 @Mapper(componentModel = "spring")
 public interface PassengerMapper {
     Passenger map(PassengerCreateDTO passengerCreateDTO);
     Passenger map(PassengerUpdateDTO passengerUpdateDTO);
     PassengerResponseDTO map(Passenger passenger);
-    FlightResponseDTO map(Flight flight);
+    FlightResponseDTO map(Flight flights);
 }

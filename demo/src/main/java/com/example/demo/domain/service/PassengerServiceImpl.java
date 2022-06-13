@@ -1,6 +1,5 @@
 package com.example.demo.domain.service;
 
-import com.example.demo.domain.entity.Aircraft;
 import com.example.demo.domain.entity.Flight;
 import com.example.demo.domain.entity.Passenger;
 import com.example.demo.domain.mapper.PassengerMapper;
@@ -9,10 +8,8 @@ import com.example.demo.domain.models.passenger.PassengerResponseDTO;
 import com.example.demo.domain.models.passenger.PassengerUpdateDTO;
 import com.example.demo.domain.repository.FlightRepository;
 import com.example.demo.domain.repository.PassengerRepository;
-import com.example.demo.infrastructure.AircraftNotFoundException;
-import com.example.demo.infrastructure.AirlineNotFoundException;
-import com.example.demo.infrastructure.FlightNotFoundException;
-import com.example.demo.infrastructure.PassengerNotFoundException;
+import com.example.demo.infrastructure.exceptions.FlightNotFoundException;
+import com.example.demo.infrastructure.exceptions.PassengerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -55,6 +52,7 @@ public class PassengerServiceImpl implements PassengerService {
         Passenger passengerDb = passengerRepository.findById(id).orElseThrow(() -> new PassengerNotFoundException(id));
         Passenger passengerForUpdate = passengerMapper.map(passengerUpdateDTO);
         passengerForUpdate.setId(passengerDb.getId());
+        passengerForUpdate.setFlights(passengerDb.getFlights());
         return passengerMapper.map(passengerRepository.save(passengerForUpdate));
     }
 

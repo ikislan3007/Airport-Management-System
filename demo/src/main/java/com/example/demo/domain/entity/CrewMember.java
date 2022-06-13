@@ -16,11 +16,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 public class CrewMember extends BaseEntity implements Serializable {
-
     @NotBlank(message = "Field cannot be blank")
     @Column(unique=true)
     private String uniqueIdentifierNumber;
@@ -39,15 +37,9 @@ public class CrewMember extends BaseEntity implements Serializable {
     @Pattern(regexp = "^(\\+\\d{1,2}\\s?)?1?\\-?\\.?\\s?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$")
     private String phoneNumber;
 
-
     @Email
     @NotBlank(message = "Email cannot be blank")
     private String email;
-
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private Date birthDate;
 
     @NotNull
     private double salary;
@@ -65,14 +57,13 @@ public class CrewMember extends BaseEntity implements Serializable {
     public CrewMember() {
     }
 
-    public CrewMember(String uniqueIdentifierNumber, String firstName, String lastName, String jobTitle, String phoneNumber, String email, Date birthDate, double salary, LocalDateTime hiringDate) {
+    public CrewMember(String uniqueIdentifierNumber, String firstName, String lastName, String jobTitle, String phoneNumber, String email, double salary, LocalDateTime hiringDate) {
         this.uniqueIdentifierNumber = uniqueIdentifierNumber;
         this.firstName = firstName;
         this.lastName = lastName;
         this.jobTitle = jobTitle;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.birthDate = birthDate;
         this.salary = salary;
         this.hiringDate = hiringDate;
     }
@@ -125,13 +116,6 @@ public class CrewMember extends BaseEntity implements Serializable {
         this.email = email;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
 
     public double getSalary() {
         return salary;

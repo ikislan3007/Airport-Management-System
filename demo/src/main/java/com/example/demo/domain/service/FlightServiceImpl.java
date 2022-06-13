@@ -9,7 +9,7 @@ import com.example.demo.domain.repository.AircraftRepository;
 import com.example.demo.domain.repository.AirlineRepository;
 import com.example.demo.domain.repository.AirportRepository;
 import com.example.demo.domain.repository.FlightRepository;
-import com.example.demo.infrastructure.*;
+import com.example.demo.infrastructure.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,17 +32,12 @@ public class FlightServiceImpl implements FlightService {
         Airport deptAirport = airportRepository.findById(flightCreateDTO.deptAirportId()).orElseThrow(() -> new AirportNotFoundException(flightCreateDTO.deptAirportId()));
         Airport destAirport = airportRepository.findById(flightCreateDTO.destAirportId()).orElseThrow(() -> new AirportNotFoundException(flightCreateDTO.destAirportId()));
 
-
         Flight flightForSave = flightMapper.map(flightCreateDTO);
-        checkIfAirportServeAirline(deptAirport.getId(),flightCreateDTO.airlineId());
+        checkIfAirportServeAirline(deptAirport.getId(), flightCreateDTO.airlineId());
         flightForSave.setDeptAirport(deptAirport);
-
-        checkIfAirportServeAirline(destAirport.getId(),flightCreateDTO.airlineId());
+        checkIfAirportServeAirline(destAirport.getId(), flightCreateDTO.airlineId());
         flightForSave.setDestAirport(destAirport);
-
-
         flightForSave.setAirline(airline);
-
         flightForSave.setDestAirport(destAirport);
         Flight flightSaved = flightRepository.save(flightForSave);
         return flightMapper.map(flightSaved);
@@ -70,18 +65,16 @@ public class FlightServiceImpl implements FlightService {
         Airport destAirport = airportRepository.findById(flightUpdateDTO.destAirportId()).orElseThrow(() -> new AirportNotFoundException(flightUpdateDTO.destAirportId()));
         Flight flightForUpdate = flightMapper.map(flightUpdateDTO);
 
-
-
-        checkIfAirportServeAirline(deptAirport.getId(),flightUpdateDTO.airlineId());
+        checkIfAirportServeAirline(deptAirport.getId(), flightDb.getAirline().getId());
         flightForUpdate.setDeptAirport(deptAirport);
-
-        checkIfAirportServeAirline(destAirport.getId(),flightUpdateDTO.airlineId());
+        checkIfAirportServeAirline(destAirport.getId(), flightDb.getAirline().getId());
         flightForUpdate.setDestAirport(destAirport);
 
         flightForUpdate.setId(flightDb.getId());
         flightForUpdate.setAirline(flightDb.getAirline());
         flightForUpdate.setDeptAirport(deptAirport);
         flightForUpdate.setDestAirport(destAirport);
+        flightForUpdate.setAircraft(flightDb.getAircraft());
         return flightMapper.map(flightRepository.save(flightForUpdate));
     }
 
@@ -91,28 +84,29 @@ public class FlightServiceImpl implements FlightService {
 
         Set<Passenger> passengersForDeletion = flight.getPassengers();
         passengersForDeletion.forEach(passenger -> passenger.getFlights().remove(flight));
-
-
         flightRepository.deleteById(id);
 
         return id;
     }
 
-    public void checkIfAirportServeAirline(Long airportId, Long airlineId){
-        Airport airport=airportRepository.findById(airportId).orElseThrow(() -> new AirportNotFoundException(airportId));
-        Airline airline=airlineRepository.findById(airlineId).orElseThrow(() -> new AirlineNotFoundException(airlineId));
-        if(!(airport.getAirlines().contains(airline) && !(airport.isDisabled()))){
-            throw new AirportDoesNotServeAirlineException(airport.getId(),airline.getId());
+    public void checkIfAirportServeAirline(Long airportId, Long airlineId) {
+        Airport airport = airportRepository.findById(airportId).orElseThrow(() -> new AirportNotFoundException(airportId));
+        Airline airline = airlineRepository.findById(airlineId).orElseThrow(() -> new AirlineNotFoundException(airlineId));
+        if (!(airport.getAirlines().contains(airline) && !(airport.isDisabled()))) {
+            throw new AirportDoesNotServeAirlineException(airport.getId(), airline.getId());
         }
 
     }
-
 
     @Override
     public FlightResponseDTO assignAircraftToFlight(Long aircraftId, Long flightId) {
         Aircraft aircraft = aircraftRepository.findById(aircraftId).orElseThrow(() -> new AircraftNotFoundException(aircraftId));
         Flight flight = flightRepository.findById(flightId).orElseThrow(() -> new FlightNotFoundException(flightId));
-         flight.setAircraft(aircraft);
+        if (aircraft.getAirline().equals(flight.getAirline())) {
+            flight.setAircraft(aircraft);
+        } else {
+            throw new AicraftAndFlightBelongDifferentAirlinesException();
+        }
         return flightMapper.map(flightRepository.save(flight));
     }
 

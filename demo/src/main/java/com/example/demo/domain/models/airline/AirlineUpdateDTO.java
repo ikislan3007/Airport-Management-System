@@ -2,7 +2,6 @@ package com.example.demo.domain.models.airline;
 
 import com.example.demo.domain.models.aircarft.AircraftCreateDTO;
 import org.hibernate.validator.constraints.URL;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.List;

@@ -1,5 +1,6 @@
 package com.example.demo.domain.models.flight;
 
+import com.example.demo.domain.models.aircarft.AircraftResponseDTO;
 import com.example.demo.domain.models.airline.AirlineResponseDTO;
 import com.example.demo.domain.models.airport.AirportResponseDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -15,5 +16,7 @@ public record FlightResponseDTO(Long id,
                                 @JsonIgnoreProperties({"airlines"})
                                 AirportResponseDTO destAirport,
                                 @JsonIgnoreProperties({"iban", "insuranceСompany", "aircrafts"})
-                                AirlineResponseDTO airline) {
+                                AirlineResponseDTO airline,
+                                @JsonIgnoreProperties({ "airline"})
+                                AircraftResponseDTO aircraft) {
 }

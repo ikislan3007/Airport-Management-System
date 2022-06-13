@@ -38,7 +38,7 @@ public class AirportController {
         return ResponseEntity.ok(airportService.getAll(pageable));
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<AirportResponseDTO> update(@PathVariable Long id, @Valid @RequestBody AirportUpdateDTO airportUpdateDTO) {
         AirportResponseDTO airportResponseDTO = airportService.update(airportUpdateDTO, id);
         return ResponseEntity.ok(airportResponseDTO);

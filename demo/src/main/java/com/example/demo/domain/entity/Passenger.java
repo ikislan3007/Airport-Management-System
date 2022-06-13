@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -76,11 +75,9 @@ public class Passenger extends BaseEntity implements Serializable {
         return lastName;
     }
 
-
     public String getEmail() {
         return email;
     }
-
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -121,4 +118,7 @@ public class Passenger extends BaseEntity implements Serializable {
     public void setFlights(Set<Flight> flights) {
         this.flights = flights;
     }
+
+
+
 }

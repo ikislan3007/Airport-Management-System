@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -34,11 +33,6 @@ public record CrewMemberCreateDTO(@NotBlank(message = "Field cannot be blank")
                                   @Email
                                   @NotBlank(message = "Email cannot be blank")
                                   String email,
-
-                                  @JsonSerialize(using = LocalDateTimeSerializer.class)
-                                  @JsonFormat(pattern = "yyyy-MM-dd")
-                                  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-                                  Date birthDate,
 
                                   @NotNull
                                   double salary,
