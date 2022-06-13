@@ -1,5 +1,6 @@
 package com.example.demo.web;
 
+import com.example.demo.domain.models.airport.AirlinesToAirport;
 import com.example.demo.domain.models.airport.AirportCreateDTO;
 import com.example.demo.domain.models.airport.AirportResponseDTO;
 import com.example.demo.domain.models.airport.AirportUpdateDTO;
@@ -37,12 +38,17 @@ public class AirportController {
         return ResponseEntity.ok(airportService.getAll(pageable));
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<AirportResponseDTO> update(@PathVariable Long id, @Valid @RequestBody AirportUpdateDTO airportUpdateDTO) {
         AirportResponseDTO airportResponseDTO = airportService.update(airportUpdateDTO, id);
         return ResponseEntity.ok(airportResponseDTO);
     }
 
+    @PatchMapping("/airline")
+    public ResponseEntity<AirportResponseDTO> assignAirlineToAirport(@Valid@RequestBody AirlinesToAirport airlinesToAirport) {
+        AirportResponseDTO airportResponseDTO = airportService.assignAirlineToAirport(airlinesToAirport.airlineId(), airlinesToAirport.airportId());
+        return ResponseEntity.ok(airportResponseDTO);
+    }
     @Autowired
     public void setAirportService(AirportService airportService) {
         this.airportService = airportService;

@@ -4,14 +4,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -39,6 +37,7 @@ public class Passenger extends BaseEntity implements Serializable {
     private Date birthDate;
 
     @NotBlank(message = "Field cannot be blank")
+    @Column(unique=true)
     private String uniqueIdentifierNumber;
 
     @ManyToMany(fetch = FetchType.LAZY,
@@ -76,11 +75,9 @@ public class Passenger extends BaseEntity implements Serializable {
         return lastName;
     }
 
-
     public String getEmail() {
         return email;
     }
-
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -121,4 +118,7 @@ public class Passenger extends BaseEntity implements Serializable {
     public void setFlights(Set<Flight> flights) {
         this.flights = flights;
     }
+
+
+
 }

@@ -7,12 +7,15 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "airline")
 public class Airline extends BaseEntity implements Serializable {
+    @Column(unique = true)
     @NotBlank(message = "Name cannot be blank")
     private String name;
 
@@ -27,14 +30,33 @@ public class Airline extends BaseEntity implements Serializable {
     @NotBlank(message = "Insurance company cannot be blank")
     private String insuranceСompany;
 
-    @ManyToMany(fetch = FetchType.LAZY,
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "airlines",
             cascade = {
                     CascadeType.PERSIST,
-                    CascadeType.MERGE
+                    CascadeType.MERGE,
             })
-    @JsonIgnore
-    private Set<Airport> airports = new HashSet<>();
+    Set<Airport> airports = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "airline_id")
+    private List<Aircraft> aircrafts = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "airline", orphanRemoval = true)
+    private List<Flight> flights = new ArrayList<>();
+
+    public Airline() {
+    }
+
+    public Airline(String name, String webSite, String iban, String insuranceСompany, Set<Airport> airports, List<Flight> flights) {
+        this.name = name;
+        this.webSite = webSite;
+        this.iban = iban;
+        this.insuranceСompany = insuranceСompany;
+        this.airports = airports;
+        this.flights = flights;
+    }
 
     public String getName() {
         return name;
@@ -76,4 +98,23 @@ public class Airline extends BaseEntity implements Serializable {
         this.airports = airports;
     }
 
+    public List<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(List<Flight> flights) {
+        this.flights = flights;
+    }
+
+    public List<Aircraft> getAircrafts() {
+        return aircrafts;
+    }
+
+    public void setAircrafts(List<Aircraft> aircrafts) {
+        this.aircrafts = aircrafts;
+    }
+
+
 }
+
+

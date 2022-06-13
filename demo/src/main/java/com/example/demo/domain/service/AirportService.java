@@ -12,4 +12,5 @@ public interface AirportService {
     Page<AirportResponseDTO> getAll(Pageable pageable);
     AirportResponseDTO update(AirportUpdateDTO airportUpdateDTO, Long id);
     Long delete(Long id);
+    AirportResponseDTO assignAirlineToAirport(Long airlineId, Long airportId);
 }

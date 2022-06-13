@@ -12,5 +12,6 @@ public interface AirlineService {
     Page<AirlineResponseDTO> getAll(Pageable pageable);
     AirlineResponseDTO update(AirlineUpdateDTO airlineUpdateDTO, Long id);
     Long delete(Long id);
+    AirlineResponseDTO assignAircraftToAirline(Long airlineId, Long  aircraftId);
 }
 

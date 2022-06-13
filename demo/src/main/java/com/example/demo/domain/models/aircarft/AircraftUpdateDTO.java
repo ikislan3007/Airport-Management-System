@@ -20,7 +20,5 @@ public record AircraftUpdateDTO(@NotBlank(message = "Registration number cannot 
                                 @JsonSerialize(using = LocalDateTimeSerializer.class)
                                 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                                 @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-                                LocalDateTime lastServiceDate
-
-) {
+                                LocalDateTime lastServiceDate) {
 }

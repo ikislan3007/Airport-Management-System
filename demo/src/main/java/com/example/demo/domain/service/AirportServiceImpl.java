@@ -8,8 +8,8 @@ import com.example.demo.domain.models.airport.AirportResponseDTO;
 import com.example.demo.domain.models.airport.AirportUpdateDTO;
 import com.example.demo.domain.repository.AirlineRepository;
 import com.example.demo.domain.repository.AirportRepository;
-import com.example.demo.infrastructure.AirlineNotFoundException;
-import com.example.demo.infrastructure.AirportNotFoundException;
+import com.example.demo.infrastructure.exceptions.AirlineNotFoundException;
+import com.example.demo.infrastructure.exceptions.AirportNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,9 +27,6 @@ public class AirportServiceImpl implements AirportService {
     @Override
     public AirportResponseDTO save(AirportCreateDTO airportCreateDTO) {
         Airport airportForSave = airportMapper.map(airportCreateDTO);
-        Set<Airline> airlines = new HashSet<>();
-        airportCreateDTO.airlinesId().forEach(id -> airlines.add(airlineRepository.findById(id).orElseThrow(() -> new AirlineNotFoundException(id))));
-        airportForSave.setAirlines(airlines);
         Airport airportSaved = airportRepository.save(airportForSave);
         return airportMapper.map(airportSaved);
     }
@@ -55,21 +52,29 @@ public class AirportServiceImpl implements AirportService {
         Airport airportForUpdate = airportMapper.map(airportUpdateDTO);
         airportForUpdate.setId(airportDb.getId());
         airportForUpdate.setCode(airportDb.getCode());
-        Set<Airline> airlines = new HashSet<>();
-        airportUpdateDTO.airlinesId().forEach(airlinesId -> airlines.add(airlineRepository.findById(airlinesId).orElseThrow(() -> new AirlineNotFoundException(airlinesId))));
-        airportForUpdate.setAirlines(airlines);
+        airportForUpdate.setAirlines(airportDb.getAirlines());
         return airportMapper.map(airportRepository.save(airportForUpdate));
     }
 
 
     @Override
     public Long delete(Long id) {
-        if (airportRepository.existsById(id)) {
-            airportRepository.deleteById(id);
-        } else {
-            throw new AirportNotFoundException(id);
-        }
+        Airport airport=airportRepository.findById(id).orElseThrow(() -> new AirportNotFoundException(id));
+        airport.getAirlines().removeAll(airport.getAirlines());
+        airportRepository.delete(airport);
         return id;
+    }
+
+    @Override
+    public AirportResponseDTO assignAirlineToAirport(Long airlineId, Long airportId) {
+        Airline airline=airlineRepository.findById(airlineId).orElseThrow(() -> new AirlineNotFoundException(airlineId));
+        Airport airport =airportRepository.findById(airportId).orElseThrow(() -> new AirportNotFoundException(airportId));
+        Set<Airline> airlines=new HashSet<>();
+        airport.getAirlines().forEach(airline1 -> airlines.add(airline1));
+        airlines.add(airline);
+        airport.setAirlines(airlines);
+        return airportMapper.map(airportRepository.save(airport));
+
     }
 
     @Autowired
